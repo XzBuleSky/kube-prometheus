@@ -4,6 +4,7 @@ local defaults = {
   namespace: error 'must provide namespace',
   version: error 'must provide version',
   image: error 'must provide image',
+  hostNetwork: error 'must provide hostNetwork',
   resources: {
     requests: { cpu: '102m', memory: '180Mi' },
     limits: { cpu: '250m', memory: '180Mi' },
@@ -236,6 +237,7 @@ function(params) {
           metadata: { labels: pa._config.commonLabels },
           spec: {
             containers: [c],
+            hostNetwork: pa._config.hostNetwork,
             serviceAccountName: $.serviceAccount.metadata.name,
             nodeSelector: { 'kubernetes.io/os': 'linux' },
             volumes: [
